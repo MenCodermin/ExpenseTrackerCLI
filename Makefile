@@ -4,8 +4,8 @@
 
 # Compiler settings - Can be customized.
 CC = g++
-CXXFLAGS = -std=c++11 -Wall
-LDFLAGS = 
+CXXFLAGS = -std=c++17 -Wall -Wextra
+LDFLAGS = -lstdc++fs
 
 # Makefile settings - Can be customized.
 APPNAME = myapp
@@ -17,13 +17,18 @@ OBJDIR = obj
 SRC = $(wildcard $(SRCDIR)/*$(EXT))
 OBJ = $(SRC:$(SRCDIR)/%$(EXT)=$(OBJDIR)/%.o)
 DEP = $(OBJ:$(OBJDIR)/%.o=%.d)
-# UNIX-based OS variables & settings
-RM = rm
-DELOBJ = $(OBJ)
-# Windows OS variables & settings
+
+# OS-specific settings
+RM = rm -f
 DEL = del
 EXE = .exe
-WDELOBJ = $(SRC:$(SRCDIR)/%$(EXT)=$(OBJDIR)\\%.o)
+ifeq ($(OS),Windows_NT)
+    CLEAN_CMD = $(DEL)
+    APP_EXT = $(EXE)
+else
+    CLEAN_CMD = $(RM)
+    APP_EXT = 
+endif
 
 ########################################################################
 ####################### Targets beginning here #########################
@@ -35,35 +40,28 @@ all: $(APPNAME)
 $(APPNAME): $(OBJ)
 	$(CC) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
-# Creates the dependecy rules
+# Ensure object directory exists
+$(OBJDIR):
+	mkdir -p $(OBJDIR)
+
+# Creates the dependency rules
 %.d: $(SRCDIR)/%$(EXT)
-	@$(CPP) $(CFLAGS) $< -MM -MT $(@:%.d=$(OBJDIR)/%.o) >$@
+	@$(CC) $(CXXFLAGS) $< -MM -MT $(@:%.d=$(OBJDIR)/%.o) >$@
 
 # Includes all .h files
 -include $(DEP)
 
 # Building rule for .o files and its .c/.cpp in combination with all .h
-$(OBJDIR)/%.o: $(SRCDIR)/%$(EXT)
+$(OBJDIR)/%.o: $(SRCDIR)/%$(EXT) | $(OBJDIR)
 	$(CC) $(CXXFLAGS) -o $@ -c $<
 
-################### Cleaning rules for Unix-based OS ###################
+################### Cleaning rules ###################
 # Cleans complete project
 .PHONY: clean
 clean:
-	$(RM) $(DELOBJ) $(DEP) $(APPNAME)
+	$(CLEAN_CMD) $(OBJ) $(DEP) $(APPNAME)$(APP_EXT)
 
 # Cleans only all files with the extension .d
 .PHONY: cleandep
 cleandep:
-	$(RM) $(DEP)
-
-#################### Cleaning rules for Windows OS #####################
-# Cleans complete project
-.PHONY: cleanw
-cleanw:
-	$(DEL) $(WDELOBJ) $(DEP) $(APPNAME)$(EXE)
-
-# Cleans only all files with the extension .d
-.PHONY: cleandepw
-cleandepw:
-	$(DEL) $(DEP)
+	$(CLEAN_CMD) $(DEP)

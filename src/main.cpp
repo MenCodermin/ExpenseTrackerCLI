@@ -1,6 +1,10 @@
 #include <iostream>
+#include "include/expense.h"
 
-int main(int argc, char argv[0])
+int main()
 {
+    ExpenseTracker exp;
+
+    exp.addExpense();
     return 0;
 }

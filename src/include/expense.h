@@ -7,24 +7,18 @@ class ExpenseTracker
 {
 private:
     int id;
-    std::set<int> deletedIds;
-    std::string directory = "E:/Projects/TaskManagerCLI/build";
-    std::string fileName = directory + "/tasks.json";
-    nlohmann::json task;
-    std::string getCurrentTimestamp();
+    std::string directory = "/mnt/Storage/CppStorage/ExpenseTrackerCLI/obj";
+    std::string fileName = directory + "/expense.json";
 
 public:
     ExpenseTracker() : id(0){}
     ~ExpenseTracker(){}
-    void printMenu();
-    void updateList();
-    void addList();
-    void deleteList();
-    void printList();
-    void ensureFileExists();
-    void updateTaskStatus();
-    void printTasksByStatus();
-    void saveToFile(const nlohmann::json& tasks);
-    void waitForUser();
-    int getValidStatus();
+    //void list();
+    //void updateExpense();
+    void addExpense();
+    void deleteExpense(int idToDelete);
+    //void ensureFileExists();
+    //void listSummary();
+    //void saveToFile(const nlohmann::json& expense);
+    std::string getCurrentTimestamp();
 };
