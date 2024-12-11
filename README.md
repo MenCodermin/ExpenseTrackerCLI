@@ -3,13 +3,13 @@ A simple expense tracker CLI which saves and prints the expenses
 
 The list of commands and their expected output is shown below:
 
-$ expense-tracker add --description "Lunch" --amount 20
+expense-tracker add --description "Lunch" --amount 20
 # Expense added successfully (ID: 1)
 
-$ expense-tracker add --description "Dinner" --amount 10
+expense-tracker add --description "Dinner" --amount 10
 # Expense added successfully (ID: 2)
 
-$ expense-tracker list
+expense-tracker list
 # ID  Date       Description  Amount
 # 1   2024-08-06  Lunch        $20
 # 2   2024-08-06  Dinner       $10
