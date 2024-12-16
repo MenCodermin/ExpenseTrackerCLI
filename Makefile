@@ -59,9 +59,19 @@ $(OBJDIR)/%.o: $(SRCDIR)/%$(EXT) | $(OBJDIR)
 # Cleans complete project
 .PHONY: clean
 clean:
-	$(CLEAN_CMD) $(OBJ) $(DEP) $(APPNAME)$(APP_EXT)
+ifeq ($(OS),Windows_NT)
+	$(CLEAN_CMD) $(subst /,\,$(OBJDIR)\*.o)
+	$(CLEAN_CMD) $(subst /,\,$(OBJDIR)\*.d)
+	$(CLEAN_CMD) $(APPNAME)$(APP_EXT)
+else
+	$(CLEAN_CMD) $(OBJDIR)/*.o $(OBJDIR)/*.d $(APPNAME)$(APP_EXT)
+endif
 
 # Cleans only all files with the extension .d
 .PHONY: cleandep
 cleandep:
-	$(CLEAN_CMD) $(DEP)
+ifeq ($(OS),Windows_NT)
+	$(CLEAN_CMD) $(subst /,\,$(OBJDIR)\*.d)
+else
+	$(CLEAN_CMD) $(OBJDIR)/*.d
+endif
