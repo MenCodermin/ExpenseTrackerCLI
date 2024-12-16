@@ -1,4 +1,13 @@
 # ExpenseTrackerCLI
+
+How to use:
+  1. Download the repository
+  2. Move it to desired folder 
+  3. Run "make" command and wait for compilation
+  4. Use all the commands below
+
+ATTENTION! DO NOT CHANGE ANYTHING INSIDE MAKEFILE
+ 
 A simple expense tracker CLI which saves and prints the expenses
 
 The list of commands and their expected output is shown below:
