@@ -8,7 +8,7 @@ CXXFLAGS = -std=c++17 -Wall -Wextra
 LDFLAGS = -lstdc++fs
 
 # Makefile settings - Can be customized.
-APPNAME = myapp
+APPNAME = exptracker
 EXT = .cpp
 SRCDIR = src
 OBJDIR = obj
