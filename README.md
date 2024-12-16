@@ -3,21 +3,28 @@ A simple expense tracker CLI which saves and prints the expenses
 
 The list of commands and their expected output is shown below:
 
-$ expense-tracker add --description "Lunch" --amount 20
+$ ./exptracker add --description "Lunch" --amount 20
 
 
-$ expense-tracker add --description "Dinner" --amount 10
+$ ./exptracker add --description "Dinner" --amount 10
 
 
-$ expense-tracker list
+$ ./exptracker list
 
 
-$ expense-tracker summary
+$ ./exptracker update --id 1 --description "lunch" --amount 40
 
-$ expense-tracker delete --id 2
 
-$ expense-tracker summary
+$ ./exptracker summary
 
-$ expense-tracker summary --month 8
+
+$ ./exptracker delete --id 2
+
+
+$ ./exptracker summary
+
+
+$ ./exptracker summary --month 8
+
 
 https://roadmap.sh/projects/expense-tracker
